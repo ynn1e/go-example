@@ -31,6 +31,13 @@ func (f Fruit) String() string {
 	}
 }
 
+/*
+Apples
+Durian
+2
+100
+Unknown
+*/
 func main() {
 	fmt.Println(Apples)
 	fmt.Println(Durian)
