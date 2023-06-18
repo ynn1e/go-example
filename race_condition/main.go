@@ -6,17 +6,6 @@ import (
 	"time"
 )
 
-/*
-$ RACE=1 go run -race main.go
-==================
-WARNING: DATA RACE
-...
-==================
-World
-World
-Found 1 data race(s)
-exit status 66
-*/
 func main() {
 	switch os.Getenv("RACE") {
 	case "1":
@@ -28,6 +17,17 @@ func main() {
 	}
 }
 
+/*
+$ RACE=1 go run -race main.go
+==================
+WARNING: DATA RACE
+...
+==================
+World
+World
+Found 1 data race(s)
+exit status 66
+*/
 func raceCondition1() {
 	msg := "Hello"
 	go func() {
