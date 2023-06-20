@@ -41,7 +41,7 @@ func NewList[TP comparable](v ...TP) *List[TP] {
 	return &l
 }
 
-// method must have no type parameters
+// method cannot have type parameters
 /*
 func (l List[TP]) GetLast[TP comparable]() (TP, bool) {
 	if len(l) == 0 {
@@ -68,7 +68,12 @@ func (l *List[C]) include(v C) bool {
 	return false
 }
 
-// unions
+// constraints(unions)
+/*
+type Ordered interface {
+	Integer | Float | ~string
+}
+*/
 
 func Max[T constraints.Ordered](x, y T) T {
 	if x >= y {
@@ -103,7 +108,9 @@ func main() {
 	/*
 		2
 		3.2
+		World
 	*/
 	fmt.Println(Max(1, 2))
 	fmt.Println(Max(3.2, 2.8))
+	fmt.Println(Max("Hello", "World"))
 }
