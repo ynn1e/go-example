@@ -13,7 +13,7 @@ var (
 	wg   = sync.WaitGroup{}
 )
 
-/*
+/* example 1
 $ go test -bench .
 mu read: 0
 mu read: 0
@@ -29,6 +29,24 @@ rwmu write: 2
 BenchmarkUseRWMu-8   	       1	4002299708 ns/op
 PASS
 ok  	_/Users/shunya.inoue/go-example/mutex	10.909s
+*/
+
+/* example 2
+$ go test -bench .
+mu read: 0
+mu read: 0
+mu read: 0
+mu write: 1
+goos: darwin
+goarch: arm64
+BenchmarkUseMu-8     	       1	6004138834 ns/op
+rwmu read: 1
+rwmu read: 1
+rwmu write: 2
+rwmu read: 2
+BenchmarkUseRWMu-8   	       1	5003401000 ns/op
+PASS
+ok  	_/Users/shunya.inoue/go-example/mutex	11.865s
 */
 
 func main() {
