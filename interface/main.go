@@ -46,6 +46,10 @@ func main() {
 				return fs.SkipDir
 			}
 
+			if strings.HasSuffix(entry.Name(), "internal") {
+				return fs.SkipDir
+			}
+
 			if strings.HasSuffix(entry.Name(), "testdata") {
 				return fs.SkipDir
 			}

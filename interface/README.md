@@ -845,64 +845,6 @@ type EncoderBufferPool interface {
 }
 ```
 
-## [internal/coverage/encodecounter/encode.go](https://cs.opensource.google/go/go/+/refs/tags/go1.20.5:src/internal/coverage/encodecounter/encode.go)
-
-```go
-type CounterVisitor interface {
-  NumFuncs() (int, error)
-  VisitFuncs(f CounterVisitorFn) error
-}
-```
-
-## [internal/pkgbits/codes.go](https://cs.opensource.google/go/go/+/refs/tags/go1.20.5:src/internal/pkgbits/codes.go)
-
-```go
-type Code interface {
-  Marker() SyncMarker
-
-  Value() int
-}
-```
-
-## [internal/reflectlite/type.go](https://cs.opensource.google/go/go/+/refs/tags/go1.20.5:src/internal/reflectlite/type.go)
-
-```go
-type Type interface {
-
-  Name() string
-
-  PkgPath() string
-
-  Size() uintptr
-
-  Kind() Kind
-
-  Implements(u Type) bool
-
-  AssignableTo(u Type) bool
-
-  Comparable() bool
-
-  String() string
-
-  Elem() Type
-
-  common() *rtype
-  uncommon() *uncommonType
-}
-```
-
-## [internal/testlog/log.go](https://cs.opensource.google/go/go/+/refs/tags/go1.20.5:src/internal/testlog/log.go)
-
-```go
-type Interface interface {
-  Getenv(key string)
-  Stat(file string)
-  Open(file string)
-  Chdir(dir string)
-}
-```
-
 ## [io/fs/fs.go](https://cs.opensource.google/go/go/+/refs/tags/go1.20.5:src/io/fs/fs.go)
 
 ```go
