@@ -101,7 +101,7 @@ func main() {
 	}
 
 	var builder strings.Builder
-	if _, err := builder.WriteString(fmt.Sprintf("# Interfaces\n\ngo version: %s\n\nYou can create README.md\n\n```sh\nSRC={your golang source} go run main.go\n```\n", runtime.Version())); err != nil {
+	if _, err := builder.WriteString(fmt.Sprintf("# Interfaces\n\ngo version: %s\n\nYou can create README.md\n\n```sh\nSRC={your golang source file path} go run main.go\n```\n", runtime.Version())); err != nil {
 		log.Println(err)
 	}
 
