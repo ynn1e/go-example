@@ -35,7 +35,7 @@ type interfaceInfo struct {
 
 func main() {
 	files := []string{}
-	src := os.Getenv("SRC")
+	src := os.Getenv("GO_SRC")
 	if err := filepath.WalkDir(src, func(path string, entry fs.DirEntry, err error) error {
 		if err != nil {
 			return err
@@ -113,7 +113,7 @@ func main() {
 	var builder strings.Builder
 
 	version := runtime.Version()
-	if _, err := builder.WriteString(fmt.Sprintf("# Interfaces\n\ngo version: %s\n\nYou can create README.md\n\n```sh\nSRC={your golang source file path} go run main.go\n```\n", version)); err != nil {
+	if _, err := builder.WriteString(fmt.Sprintf("# Interfaces\n\ngo version: %s\n\nYou can create README.md\n\n```sh\nGO_SRC={GO SOURCE} go run main.go\n```\n", version)); err != nil {
 		log.Println(err)
 	}
 

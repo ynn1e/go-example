@@ -5,7 +5,7 @@ go version: go1.20.5
 You can create README.md
 
 ```sh
-SRC={your golang source file path} go run main.go
+GO_SRC={GO SOURCE} go run main.go
 ```
 
 ## [compress/flate/inflate.go](https://cs.opensource.google/go/go/+/refs/tags/go1.20.5:src/compress/flate/inflate.go)
