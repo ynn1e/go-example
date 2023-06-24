@@ -15,9 +15,10 @@ import (
 type interfaceInfoList []interfaceInfo
 
 func (l *interfaceInfoList) append(file, text string) {
-	for _, ii := range *l {
+	for i, ii := range *l {
 		if ii.file == file {
-			ii.texts = append(ii.texts, text)
+			l := []interfaceInfo(*l)
+			l[i].texts = append(l[i].texts, text)
 			return
 		}
 	}
@@ -34,7 +35,8 @@ type interfaceInfo struct {
 
 func main() {
 	files := []string{}
-	if err := filepath.WalkDir(os.Getenv("SRC"), func(path string, entry fs.DirEntry, err error) error {
+	src := os.Getenv("SRC")
+	if err := filepath.WalkDir(src, func(path string, entry fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -75,7 +77,7 @@ func main() {
 		defer file.Close()
 
 		scanner := bufio.NewScanner(file)
-		name := filepath.Base(file.Name())
+		name := strings.ReplaceAll(file.Name(), src+"/", "")
 		var text []string
 		for scanner.Scan() {
 			line := scanner.Text()
@@ -91,6 +93,10 @@ func main() {
 			}
 
 			if len(text) > 0 {
+				if strings.Contains(line, "//") {
+					continue
+				}
+
 				text = append(text, line)
 				if strings.HasPrefix(line, "}") && strings.HasSuffix(line, "}") { // it means the line is "}"
 					iInfo.append(name, strings.Join(text, "\n"))
@@ -101,12 +107,15 @@ func main() {
 	}
 
 	var builder strings.Builder
-	if _, err := builder.WriteString(fmt.Sprintf("# Interfaces\n\ngo version: %s\n\nYou can create README.md\n\n```sh\nSRC={your golang source file path} go run main.go\n```\n", runtime.Version())); err != nil {
+
+	version := runtime.Version()
+	if _, err := builder.WriteString(fmt.Sprintf("# Interfaces\n\ngo version: %s\n\nYou can create README.md\n\n```sh\nSRC={your golang source file path} go run main.go\n```\n", version)); err != nil {
 		log.Println(err)
 	}
 
 	for _, ii := range iInfo {
-		_, err := builder.WriteString(fmt.Sprintf("\n## %s\n", ii.file))
+		link := fmt.Sprintf("https://cs.opensource.google/go/go/+/refs/tags/%s:src/%s", version, ii.file)
+		_, err := builder.WriteString(fmt.Sprintf("\n## [%s](%s)\n", ii.file, link))
 		if err != nil {
 			log.Fatalln(err)
 		}
