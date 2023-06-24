@@ -2,6 +2,12 @@
 
 go version: go1.20.5
 
+You can create README.md
+
+```sh
+SRC={your golang source} go run main.go
+```
+
 ## inflate.go
 
 ```go
